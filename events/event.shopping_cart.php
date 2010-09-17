@@ -2,31 +2,29 @@
 
 	if(!defined('__IN_SYMPHONY__')) die('<h2>Error</h2><p>You cannot directly access this file</p>');
 
-	Final Class eventShopping_Cart extends Event{
-
+	Final Class eventShopping_Cart extends Event
+	{
 		private $_s;
-		private $_field_id;
-
 		private $_error = false;
-		private $_msg = null;
-		
+		private $_msg = null;		
 		private $_id;
 		private $_num;
 		private $_price;
-
-		public static function about(){
-					
+		
+		public static function about()
+		{
 			return array(
-						 'name' => 'Shopping Cart',
-						 'author' => array('name' => 'Andrey Lubinov',
-										   'website' => 'http://las.com.ua',
-										   'email' => 'andrey.lubinov@gmail.com'),
-						 'version' => '1.0',
-						 'release-date' => '2009-16-12',
-					);
+				'name' => 'Shopping Cart',
+				'author' => array('name' => 'Andrey Lubinov',
+					'website' => 'http://las.com.ua',
+					'email' => 'andrey.lubinov@gmail.com'),
+				'version' => '1.0',
+				'release-date' => '2009-16-12',
+			);
 		}
 
-    public static function documentation(){
+    public static function documentation()
+	{
       return '<h3>Event XML example</h3>
 <pre><code>'. htmlentities('<shopping-cart action="add|drop|recalc|dropall" result="success|error">
 	<msg>Text message</msg>
@@ -84,63 +82,51 @@
 
     }
 
-		public function load(){
+		public function load()
+		{
 			if(isset($_REQUEST['cart-action']) && !empty($_REQUEST['cart-action'])){
 				return $this->__trigger();
 			}
 		}
-
-
-		protected function __trigger(){
-
+		
+		protected function __trigger()
+		{
 			$xml = new XMLelement('shopping-cart');
-
+			
 			if($_GET['cart-action']){
 				$action = $_GET['cart-action'];
 			} else {
 				list($action) = array_keys($_POST['cart-action']);
 			}
-
+			
 			if(!method_exists($this, $action)) {
 				$this->_error = true;
 				$this->_msg = __('Unaccepted action');
 			}
-
-			if(!$this->_error) {
 			
+			if(!$this->_error) {
 				$this->_s = &$_SESSION[__SYM_COOKIE_PREFIX_ . 'cart'];
-				
-				$this->_field_id = $this->_Parent->Configuration->get('field_id', 'shopping_cart');
-				
-				if(!$this->_field_id || !is_numeric($this->_field_id)){
-					$this->_error = true;
-					$this->_msg = __('Price Field is not set or is invalid');
-				}
-				
-				if(!$this->_error) $this->$action(); 
+				$this->$action();
 			}
 			
 			$xml->setAttributeArray(array('action' => General::sanitize($action), 'result' => $this->_error == true ? 'error' : 'success'));
 			$xml->appendChild(new XMLElement('msg', $this->_msg));
 			return $xml;
-			
 		}
-    
-
-		protected function add(){
-
+		
+		protected function add()
+		{
 			if(!$this->dataIsValid()) return false;
 			$this->_s[$this->_id] = array(
+				/*'price' => $this->_price,*/
 				'num' => $this->_s[$this->_id]['num'] + $this->_num, 
 				'sum' => $this->_s[$this->_id]['sum'] + $this->_price * $this->_num
 			);
 			return $this->_msg = __('Item added to cart');
-			
 		}
 		
-    
-    protected function recalc(){
-    
+	    protected function recalc()
+		{
 			if(!$this->dataIsValid()) return false;
 			$this->_s[$this->_id] = array(
 				'num' => $this->_num, 
@@ -150,9 +136,8 @@
 			
 		}
 		
-
-		protected function drop(){
-		
+		protected function drop()
+		{
 			if(!$this->dataIsValid(true)) return false;
 			$filtered = array();
 			foreach($this->_s as $k => $v){
@@ -161,35 +146,36 @@
 			}
 			$this->_s = $filtered;
 			return $this->_msg = __('Item is dropped');
-			
 		}
-
-
-		protected function dropAll(){
 		
+		protected function dropAll()
+		{
 			$this->_s = null;
 			return $this->_msg = __('All items are dropped');
-		
 		}
-
-
-		protected function dataIsValid($idOnly){
 		
+		protected function dataIsValid($idOnly = false)
+		{
 			if(empty($_REQUEST['id']) || !is_numeric($_REQUEST['id'])){
 				$this->_error = true;
 				$this->_msg = __('ID is not set or is invalid');
 				return false;
 			}
-
 			$this->_id = $_REQUEST['id'];
-
 			if($idOnly) return true;
-
+			
+			// Check which field of this item is of the type 'price':
+			$sql = 'SELECT A.`id` FROM `tbl_fields` A, `tbl_entries` B WHERE
+				A.`parent_section` = B.`section_id` AND
+				A.`type` = \'price\' AND 
+				B.`id` = '.$this->_id.';';
+			$fieldID = $this->_Parent->Database()->fetchVar('id', 0, $sql);
+			
 			if(!$this->_price = $this->_Parent->Database->fetchVar("value", 0, "
-								SELECT `value` AS `value` 
-								FROM `tbl_entries_data_{$this->_field_id}` 
-								WHERE `entry_id` = {$this->_id} 
-								LIMIT 1
+					SELECT `value` AS `value` 
+					FROM `tbl_entries_data_{$fieldID}` 
+					WHERE `entry_id` = {$this->_id} 
+					LIMIT 1
 				")){
 				$this->_error = true;
 				$this->_msg = __('Can\'t find price value for this item');
@@ -204,8 +190,5 @@
 			
 			$this->_num = empty($_REQUEST['num']) ? 1 : $_REQUEST['num'];
 			return true;
-		
 		}
-
-
 	}
