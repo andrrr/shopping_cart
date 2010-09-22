@@ -12,14 +12,15 @@
 				'email' => 'andrey.lubinov@gmail.com'),
 				'version' => '1.0',
 				'description' => '
-					Output example: 
+					<p>Prices are stored in cents</p>
+					<p>Output example: </p>
 					<pre><code>' 
-					.htmlentities('<shopping-cart items="2" total="381.99">
-					<item id="8" num="2" sum="82" />
-					<item id="9" num="1" sum="299.99" />
-					</shopping-cart>').
+					.htmlentities('<shopping-cart items="2" total="38199">
+	<item id="8" num="2" sum="8200" />
+	<item id="9" num="1" sum="29999" />
+</shopping-cart>').
 					'</code></pre>
-					Data Source is also outputs ids of items as <code>$ds-shopping-cart</code> Parameter Output for filtering in another Data Sources',
+					<p>Data Source is also outputs ids of items as <code>$ds-shopping-cart</code> Parameter Output for filtering in another Data Sources</p>',
 				'release-date' => '2009-16-12'
 			); 
 		}
