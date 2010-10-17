@@ -14,10 +14,10 @@
 				'description' => '
 					<p>Output example:</p> 
 					<pre><code>' 
-					.htmlentities('<shopping-cart items="2" total="381.99">
-					<item id="8" num="2" sum="82" />
-					<item id="9" num="1" sum="299.99" />
-					</shopping-cart>').
+.htmlentities('<shopping-cart items="2" total="381.99">
+	<item id="8" num="2" sum="82" />
+	<item id="9" num="1" sum="299.99" />
+</shopping-cart>').
 					'</code></pre>
 					<p>Data Source is also outputs ids of items as <code>$ds-shopping-cart</code> Parameter Output for filtering in another Data Sources</p>',
 				'release-date' => '2010-10-17'
