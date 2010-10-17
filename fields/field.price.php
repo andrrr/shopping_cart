@@ -41,7 +41,7 @@
 			$value = General::sanitize($data['value']);
 			$label = Widget::Label($this->get('label'));
 			if($this->get('required') != 'yes') $label->appendChild(new XMLElement('i', __('Optional')));
-			$label->appendChild(Widget::Input('fields'.$fieldnamePrefix.'['.$this->get('element_name').']'.$fieldnamePostfix, (strlen($value) != 0 ? number_format($value/100, 2, '.', '') : NULL)));
+			$label->appendChild(Widget::Input('fields'.$fieldnamePrefix.'['.$this->get('element_name').']'.$fieldnamePostfix, $value));
 			$label->appendChild(new XMLElement('em', __('Enter currency in the following format: ####.## (for example: 49.95, 1900, 1899.50)')));
 			if($flagWithError != NULL) $wrapper->appendChild(Widget::wrapFormElementWithError($label, $flagWithError));
 			else $wrapper->appendChild($label);
@@ -143,10 +143,9 @@
 		{
 			$status = self::__OK__;
 			if (strlen(trim($data)) == 0) return array();
-			$result = array(
-				'value' => floatval($data) * 100
-			);
-			return $result;
+			if(!is_float($data)) $data = number_format($data, 2, '.', '');
+			
+			return array('value' => $data);
 		}
 		
 		public function canPrePopulate()
@@ -189,7 +188,7 @@
 		public function prepareTableValue($data, XMLElement $link = null)
 		{
 			if (empty($data)) return;
-			return number_format($data['value'] / 100, 2, '.', ',');			
+			return $data['value'];
 		}
 		
 		public function createTable()
