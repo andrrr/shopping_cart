@@ -4,10 +4,10 @@
 	{
 		public function about(){
 			return array('name' => 'Shopping Cart',
-				'version' => '1.0',
-				'release-date' => '2009-16-12',
-				'author' => array('name' => 'Andrey Lubinov',
-					'website' => 'http://las.com.ua',
+				'version' => '1.2',
+				'release-date' => '2010-10-17',
+				'author' => array('name' => 'Andrey Lubinov, Giel Berkers',
+					'website' => false,
 					'email' => 'andrey.lubinov@gmail.com')
 			);
 		}
