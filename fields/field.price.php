@@ -71,7 +71,22 @@
 		public function buildDSRetrivalSQL($data, &$joins, &$where, $andOperation = false)
 		{
 			$field_id = $this->get('id');
-			if (self::isFilterRegex($data[0])) {
+			
+			 if (preg_match('/^range:/i', $data[0])) {
+
+					$field_id = $this->get('id');
+					$joins .= " LEFT JOIN `tbl_entries_data_$field_id` AS `t$field_id` ON (`e`.`id` = `t$field_id`.entry_id) ";
+
+					$values = explode('/', trim(substr($data[0], 6)));
+					
+					# min 
+					$where .= (!empty($values[0]) && is_numeric($values[0])) ? 
+						" AND `t$field_id`.`value` >= $values[0]" : null;
+					# max
+					$where .= (!empty($values[1]) && is_numeric($values[1])) ? 
+						" AND `t$field_id`.`value` <= $values[1]" : null;
+
+			} elseif (self::isFilterRegex($data[0])) {
 				$this->_key++;
 				$pattern = str_replace('regexp:', '', $this->cleanValue($data[0]));
 				$joins .= "
@@ -82,7 +97,6 @@
 				$where .= "
 					AND (
 						t{$field_id}_{$this->_key}.value REGEXP '{$pattern}'
-						OR t{$field_id}_{$this->_key}.handle REGEXP '{$pattern}'
 					)
 				";
 			} elseif ($andOperation) {
@@ -97,7 +111,6 @@
 					$where .= "
 						AND (
 							t{$field_id}_{$this->_key}.value = '{$value}'
-							OR t{$field_id}_{$this->_key}.handle = '{$value}'
 						)
 					";
 				}
@@ -118,7 +131,6 @@
 				$where .= "
 					AND (
 						t{$field_id}_{$this->_key}.value IN ('{$data}')
-						OR t{$field_id}_{$this->_key}.handle IN ('{$data}')
 					)
 				";
 			}
@@ -191,6 +203,16 @@
 			return $data['value'];
 		}
 		
+		public function displayDatasourceFilterPanel(&$wrapper, $data=NULL, $errors=NULL, $fieldnamePrefix=NULL, $fieldnamePostfix=NULL){
+			$wrapper->appendChild(new XMLElement('h4', $this->get('label') . ' <i>'.$this->Name().'</i>'));
+			$label = Widget::Label('Value');
+			$label->appendChild(Widget::Input('fields[filter]'.($fieldnamePrefix ? '['.$fieldnamePrefix.']' : '').'['.$this->get('id').']'.($fieldnamePostfix ? '['.$fieldnamePostfix.']' : ''), ($data ? General::sanitize($data) : NULL)));
+			$wrapper->appendChild($label);
+
+			$wrapper->appendChild(new XMLElement('p', 'To filter by ranges, add <code>range:</code> to the beginning of the filter input and use <code>{$min}/{$max}</code> syntax', array('class' => 'help')));
+
+		}
+
 		public function createTable()
 		{
 			return Symphony::Database()->query(
