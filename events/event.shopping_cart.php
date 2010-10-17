@@ -16,10 +16,10 @@
 			return array(
 				'name' => 'Shopping Cart',
 				'author' => array('name' => 'Andrey Lubinov',
-					'website' => 'http://las.com.ua',
+					'website' => false,
 					'email' => 'andrey.lubinov@gmail.com'),
-				'version' => '1.0',
-				'release-date' => '2009-16-12',
+				'version' => '1.2',
+				'release-date' => '2010-10-17',
 			);
 		}
 
