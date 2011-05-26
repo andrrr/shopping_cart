@@ -4,9 +4,9 @@
 	{
 		public function about(){
 			return array('name' => 'Shopping Cart',
-				'version' => '1.2',
-				'release-date' => '2010-10-17',
-				'author' => array('name' => 'Andrey Lubinov, Giel Berkers',
+				'version' => '1.2.1',
+				'release-date' => '2011-05-26',
+				'author' => array('name' => 'Andrey Lubinov, Giel Berkers, Mario Butera',
 					'website' => false,
 					'email' => 'andrey.lubinov@gmail.com')
 			);
@@ -49,6 +49,12 @@
 				  PRIMARY KEY  (`id`),
 				  KEY `field_id` (`field_id`)
 				)");
+				Symphony::Database()->query("CREATE TABLE IF NOT EXISTS `tbl_fields_weight` (
+					  `id` int(11) unsigned NOT NULL auto_increment,
+					  `field_id` int(11) unsigned NOT NULL,
+				  PRIMARY KEY  (`id`),
+				  KEY `field_id` (`field_id`)
+				)");
 			}
 			catch(Exception $e){
 				return false;
@@ -59,6 +65,7 @@
 		public function uninstall() {
 			if(parent::uninstall() == true){
 				Symphony::Database()->query("DROP TABLE `tbl_fields_price`");
+				Symphony::Database()->query("DROP TABLE `tbl_fields_weight`");
 				return true;
 			}			
 			return false;
