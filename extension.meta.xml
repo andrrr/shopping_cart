@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extension id="shopping_cart">
+	<name>Shopping Cart</name>
+	<description>This extension provides shopping cart base functionality for your Symphony website.</description>
+	<repo type="github">https://github.com/andrrr/shopping_cart</repo>
+	<url type="discuss">http://symphony-cms.com/discuss/thread/35546/</url>
+	<types>
+		<type>Other</type>
+		<type>Workflow</type>
+	</types>
+	<authors>
+		<author>
+			<name github="andrrr" symphony="andrrr">Andrey Lubinov</name>
+		</author>
+	</authors>
+	<releases>
+		<release version="1.0.2" date="2011-08-12" min="2.2.2" />
+	</releases>
+</extension>
