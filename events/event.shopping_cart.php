@@ -171,7 +171,7 @@
 				B.`id` = '.$this->_id.';';
 			$fieldID = Symphony::Database()->fetchVar('id', 0, $sql);
 			
-			if(!$this->_price = Symphony::Database->fetchVar("value", 0, "
+			if(!$this->_price = Symphony::Database()->fetchVar("value", 0, "
 					SELECT `value` AS `value` 
 					FROM `tbl_entries_data_{$fieldID}` 
 					WHERE `entry_id` = {$this->_id} 
