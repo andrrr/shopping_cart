@@ -10,9 +10,8 @@
 		private $_id;
 		private $_num;
 		private $_price;
-		private $_weight;
 		
-		public static function about()
+		/*public static function about()
 		{
 			return array(
 				'name' => 'Shopping Cart',
@@ -22,7 +21,7 @@
 				'version' => '1.2',
 				'release-date' => '2010-10-17',
 			);
-		}
+		}*/
 
     public static function documentation()
 	{
@@ -121,8 +120,7 @@
 			$this->_s[$this->_id] = array(
 				/*'price' => $this->_price,*/
 				'num' => $this->_s[$this->_id]['num'] + $this->_num, 
-				'sum' => $this->_s[$this->_id]['sum'] + $this->_price * $this->_num,
-				'weight' => $this->_s[$this->_id]['weight'] + $this->_weight * $this->_num
+				'sum' => $this->_s[$this->_id]['sum'] + $this->_price * $this->_num
 			);
 			return $this->_msg = __('Item added to cart');
 		}
@@ -132,8 +130,7 @@
 			if(!$this->dataIsValid()) return false;
 			$this->_s[$this->_id] = array(
 				'num' => $this->_num, 
-				'sum' => $this->_price * $this->_num,
-				'weight' => $this->_weight * $this->_num
+				'sum' => $this->_price * $this->_num
 			);
 			return $this->_msg = __('Cart is recalculated');
 			
@@ -168,42 +165,20 @@
 			if($idOnly) return true;
 			
 			// Check which field of this item is of the type 'price':
-			$sql_price = 'SELECT A.`id` FROM `tbl_fields` A, `tbl_entries` B WHERE
+			$sql = 'SELECT A.`id` FROM `tbl_fields` A, `tbl_entries` B WHERE
 				A.`parent_section` = B.`section_id` AND
 				A.`type` = \'price\' AND 
 				B.`id` = '.$this->_id.';';
-<<<<<<< HEAD
-			$field_priceID = $this->_Parent->Database()->fetchVar('id', 0, $sql_price);
-=======
 			$fieldID = Symphony::Database()->fetchVar('id', 0, $sql);
->>>>>>> 28c91725f41a51430d32c007765fdfeb676a0007
 			
 			if(!$this->_price = Symphony::Database()->fetchVar("value", 0, "
 					SELECT `value` AS `value` 
-					FROM `tbl_entries_data_{$field_priceID}` 
+					FROM `tbl_entries_data_{$fieldID}` 
 					WHERE `entry_id` = {$this->_id} 
 					LIMIT 1
 				")){
 				$this->_error = true;
 				$this->_msg = __('Can\'t find price value for this item');
-				return false;
-			}
-			
-			// Check which field of this item is of the type 'weight':
-			$sql_weight = 'SELECT A.`id` FROM `tbl_fields` A, `tbl_entries` B WHERE
-				A.`parent_section` = B.`section_id` AND
-				A.`type` = \'weight\' AND 
-				B.`id` = '.$this->_id.';';
-			$field_weightID = $this->_Parent->Database()->fetchVar('id', 0, $sql_weight);
-			
-			if(!$this->_weight = $this->_Parent->Database->fetchVar("value", 0, "
-					SELECT `value` AS `value` 
-					FROM `tbl_entries_data_{$field_weightID}` 
-					WHERE `entry_id` = {$this->_id} 
-					LIMIT 1
-				")){
-				$this->_error = true;
-				$this->_msg = __('Can\'t find weight value for this item');
 				return false;
 			}
 			
