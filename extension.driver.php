@@ -4,9 +4,15 @@
 	{
 		/*public function about(){
 			return array('name' => 'Shopping Cart',
+<<<<<<< HEAD
 				'version' => '1.2.1',
 				'release-date' => '2011-05-26',
 				'author' => array('name' => 'Andrey Lubinov, Giel Berkers, Mario Butera',
+=======
+				'version' => '1.2',
+				'release-date' => '2010-10-17',
+				'author' => array('name' => 'Andrey Lubinov, Giel Berkers',
+>>>>>>> 28c91725f41a51430d32c007765fdfeb676a0007
 					'website' => false,
 					'email' => 'andrey.lubinov@gmail.com')
 			);

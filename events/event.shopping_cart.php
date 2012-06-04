@@ -172,9 +172,13 @@
 				A.`parent_section` = B.`section_id` AND
 				A.`type` = \'price\' AND 
 				B.`id` = '.$this->_id.';';
+<<<<<<< HEAD
 			$field_priceID = $this->_Parent->Database()->fetchVar('id', 0, $sql_price);
+=======
+			$fieldID = Symphony::Database()->fetchVar('id', 0, $sql);
+>>>>>>> 28c91725f41a51430d32c007765fdfeb676a0007
 			
-			if(!$this->_price = $this->_Parent->Database->fetchVar("value", 0, "
+			if(!$this->_price = Symphony::Database()->fetchVar("value", 0, "
 					SELECT `value` AS `value` 
 					FROM `tbl_entries_data_{$field_priceID}` 
 					WHERE `entry_id` = {$this->_id} 
