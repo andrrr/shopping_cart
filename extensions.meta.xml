@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extension id="shopping_cart" status="released" xmlns="http://symphony-cms.com/schemas/extension/1.0">
+	<name>Shopping Cart</name>
+	<description>This extension provides shopping cart base functionality for your Symphony website.
+	</description>
+	<repo type="github">https://github.com/mblabs/shopping_cart.git</repo>
+	<url type="discuss">http://http://symphony-cms.com/discuss/thread/35546/</url>
+	<types>
+		<type>Field</type>
+	</types>
+	<authors>
+		<author>
+			<name github="" symphony="">Andrey Lubinov</name>
+			<email>andrey.lubinov@gmail.com</email>
+		</author>
+		<author>
+			<name github="kanduvisla" symphony="kanduvilsa">Giel Berkers</name>
+		</author>
+		<author>
+			<name github="" symphony="">Mario Butera</name>
+		</author>
+	</authors>
+	<dependencies>
+		<!-- None -->
+	</dependencies>
+	<releases>
+	<release version="1.2.2" date="2012-06-04" min="2.3">
+	- Made compatible with Symphony 2.3
+	</release>
+	</releases>
+</extension>

@@ -1,9 +1,9 @@
 <?php
 	Class fieldWeight extends Field
 	{
-		public function __construct(&$parent)
+		public function __construct()
 		{
-			parent::__construct($parent);
+			parent::__construct();
 			$this->_name = __('Weight');
 			$this->_required = true;
 			$this->set('required', 'yes');
@@ -68,7 +68,7 @@
 			$sort = 'ORDER BY ' . (in_array(strtolower($order), array('random', 'rand')) ? 'RAND()' : "`ed`.`value` $order");
 		}
 		
-		public function buildDSRetrivalSQL($data, &$joins, &$where, $andOperation = false)
+		public function buildDSRetrievalSQL($data, &$joins, &$where, $andOperation = false)
 		{
 			$field_id = $this->get('id');
 			
@@ -151,7 +151,7 @@
 			return self::__OK__;
 		}
 		
-		public function processRawFieldData($data, &$status, $simulate = false, $entry_id = null)
+		public function processRawFieldData($data, &$status, &$message=null, $simulate = false, $entry_id = null)
 		{
 			$status = self::__OK__;
 			if (strlen(trim($data)) == 0) return array();
