@@ -68,7 +68,7 @@
 			$sort = 'ORDER BY ' . (in_array(strtolower($order), array('random', 'rand')) ? 'RAND()' : "`ed`.`value` $order");
 		}
 		
-		public function buildDSRetrivalSQL($data, &$joins, &$where, $andOperation = false)
+		public function buildDSRetrievalSQL($data, &$joins, &$where, $andOperation = false)
 		{
 			$field_id = $this->get('id');
 			
@@ -223,7 +223,7 @@
 				  PRIMARY KEY  (`id`),
 				  KEY `entry_id` (`entry_id`),
 				  KEY `value` (`value`)
-				) ENGINE=MyISAM;"
+				) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;"
 			);
 		}
 	}
