@@ -2,7 +2,7 @@
     Final Class datasourceShopping_Cart Extends DataSource
 	{
 
-		public function about()
+		/*public function about()
 		{
 			return array(
 				'name' => 'Shopping Cart',
@@ -22,7 +22,7 @@
 					<p>Data Source is also outputs ids of items as <code>$ds-shopping-cart</code> Parameter Output for filtering in another Data Sources</p>',
 				'release-date' => '2010-10-17'
 			); 
-		}
+		}*/
 	
 		public function grab(&$param_pool)
 		{
@@ -34,6 +34,7 @@
 			}
 			$param_pool['ds-shopping-cart'] = implode(',', array_keys($s));
 			$total = null;
+			
 			foreach($s as $key => $value){
 				$item = new XMLElement('item', null, array(
 					'id' => $key,

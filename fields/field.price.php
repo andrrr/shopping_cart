@@ -39,11 +39,12 @@
 		public function displayPublishPanel(&$wrapper, $data=NULL, $flagWithError=NULL, $fieldnamePrefix=NULL, $fieldnamePostfix=NULL)
 		{
 			$value = General::sanitize($data['value']);
+			
 			$label = Widget::Label($this->get('label'));
 			if($this->get('required') != 'yes') $label->appendChild(new XMLElement('i', __('Optional')));
 			$label->appendChild(Widget::Input('fields'.$fieldnamePrefix.'['.$this->get('element_name').']'.$fieldnamePostfix, $value));
 			$label->appendChild(new XMLElement('em', __('Enter currency in the following format: ####.## (for example: 49.95, 1900, 1899.50)')));
-			if($flagWithError != NULL) $wrapper->appendChild(Widget::wrapFormElementWithError($label, $flagWithError));
+			if($flagWithError != NULL) $wrapper->appendChild(Widget::Error($label, $flagWithError));
 			else $wrapper->appendChild($label);
 		}
 		
@@ -103,6 +104,7 @@
 				foreach ($data as $value) {
 					$this->_key++;
 					$value = $this->cleanValue($value);
+					$value = $value;
 					$joins .= "
 						LEFT JOIN
 							`tbl_entries_data_{$field_id}` AS t{$field_id}_{$this->_key}

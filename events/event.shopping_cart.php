@@ -11,7 +11,7 @@
 		private $_num;
 		private $_price;
 		
-		/*public static function about()
+		public static function about()
 		{
 			return array(
 				'name' => 'Shopping Cart',
@@ -21,7 +21,7 @@
 				'version' => '1.2',
 				'release-date' => '2010-10-17',
 			);
-		}*/
+		}
 
     public static function documentation()
 	{
