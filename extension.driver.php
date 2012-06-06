@@ -2,15 +2,6 @@
 
 	Class extension_shopping_cart extends Extension
 	{
-		public function about(){
-			return array('name' => 'Shopping Cart',
-				'version' => '1.2',
-				'release-date' => '2010-10-17',
-				'author' => array('name' => 'Andrey Lubinov, Giel Berkers',
-					'website' => false,
-					'email' => 'andrey.lubinov@gmail.com')
-			);
-		}
 		
 		public function getSubscribedDelegates(){
 			return array(
@@ -60,7 +51,6 @@
 		public function uninstall() {
 			if(parent::uninstall() == true){
 				Symphony::Database()->query("DROP TABLE `tbl_fields_price`");
-				Symphony::Database()->query("DROP TABLE `tbl_fields_weight`");
 				return true;
 			}			
 			return false;

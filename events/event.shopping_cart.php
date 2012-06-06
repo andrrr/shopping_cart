@@ -16,7 +16,6 @@
 			return array(
 				'name' => 'Shopping Cart',
 				'author' => array('name' => 'Andrey Lubinov',
-					'website' => false,
 					'email' => 'andrey.lubinov@gmail.com'),
 				'version' => '1.2',
 				'release-date' => '2010-10-17',
