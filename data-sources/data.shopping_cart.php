@@ -8,6 +8,7 @@
 				'name' => 'Shopping Cart',
 				'author' => array(
 				'name' => 'Andrey Lubinov',
+				'website' => '',
 				'email' => 'andrey.lubinov@gmail.com'),
 				'version' => '1.2',
 				'description' => '
