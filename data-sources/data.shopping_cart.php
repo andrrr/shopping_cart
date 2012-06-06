@@ -40,7 +40,7 @@
 					'num' => $value['num'],
 					'sum' => $value['sum'])
 				);
-				$xml->appendChild($item);
+				$xml->appendChild((string)$item);
 				$total = $total + $value['sum'];
 			}
 			
