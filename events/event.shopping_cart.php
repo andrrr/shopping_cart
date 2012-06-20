@@ -182,7 +182,7 @@
 				return false;
 			}
 			
-			if(!empty($_REQUEST['num']) && !is_numeric($_REQUEST['num'])){
+			if(!empty($_REQUEST['num']) && !ctype_digit($_REQUEST['num'])){
 				$this->_error = true;
 				$this->_msg = __('Number of items is invalid');
 				return false;
