@@ -16,8 +16,8 @@
 			return array(
 				'name' => 'Shopping Cart',
 				'author' => array('name' => 'Andrey Lubinov',
-					'website' => false,
-					'email' => 'andrey.lubinov@gmail.com'),
+				'website' => '',
+				'email' => 'andrey.lubinov@gmail.com'),
 				'version' => '1.2',
 				'release-date' => '2010-10-17',
 			);
@@ -156,7 +156,7 @@
 		
 		protected function dataIsValid($idOnly = false)
 		{
-			if(empty($_REQUEST['id']) || !is_numeric($_REQUEST['id'])){
+			if(empty($_REQUEST['id']) || !ctype_digit($_REQUEST['id'])){
 				$this->_error = true;
 				$this->_msg = __('ID is not set or is invalid');
 				return false;
@@ -182,7 +182,7 @@
 				return false;
 			}
 			
-			if(!empty($_REQUEST['num']) && !is_numeric($_REQUEST['num'])){
+			if(!empty($_REQUEST['num']) && !ctype_digit($_REQUEST['num'])){
 				$this->_error = true;
 				$this->_msg = __('Number of items is invalid');
 				return false;

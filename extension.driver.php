@@ -2,15 +2,6 @@
 
 	Class extension_shopping_cart extends Extension
 	{
-		public function about(){
-			return array('name' => 'Shopping Cart',
-				'version' => '1.2',
-				'release-date' => '2010-10-17',
-				'author' => array('name' => 'Andrey Lubinov, Giel Berkers',
-					'website' => false,
-					'email' => 'andrey.lubinov@gmail.com')
-			);
-		}
 		
 		public function getSubscribedDelegates(){
 			return array(
@@ -33,8 +24,9 @@
 		}
 		
 		public function addFilterToEventEditor($context){ 
-			$context['options'][] = array('cart-drop-all', @in_array('cart-drop-all', $context['selected']) , __('Cart: Drop All Items'));   
+			$context['options'][] = array('cart-drop-all', @in_array('cart-drop-all', $context['selected']) , __('Cart: Drop All Items'));  
 		}
+		
 		
 		public function processEventData($context){
 			if(!in_array('cart-drop-all', $context['event']->eParamFILTERS)) return;
@@ -48,7 +40,7 @@
 					  `field_id` int(11) unsigned NOT NULL,
 				  PRIMARY KEY  (`id`),
 				  KEY `field_id` (`field_id`)
-				)");
+				) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;");
 			}
 			catch(Exception $e){
 				return false;

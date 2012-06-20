@@ -28,4 +28,4 @@ for your Symphony website.
 
 #### Price field output filtering
 
-- Use ` range: {$min-price}/{$max-price} ` for filtering by price ranges. 
+- Use ` range: {$min-price}/{$max-price} ` for filtering by price ranges.

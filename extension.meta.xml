@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<extension id="shopping_cart">
+<extension id="shopping_cart" status="released" xmlns="http://symphony-cms.com/schemas/extension/1.0">
 	<name>Shopping Cart</name>
 	<description>This extension provides shopping cart base functionality for your Symphony website.</description>
 	<repo type="github">https://github.com/andrrr/shopping_cart</repo>
@@ -14,6 +14,6 @@
 		</author>
 	</authors>
 	<releases>
-		<release version="1.0.2" date="2011-08-12" min="2.2.2" />
+		<release version="1.3" date="2012-06-6" min="2.3" max="2.3.x" />
 	</releases>
 </extension>

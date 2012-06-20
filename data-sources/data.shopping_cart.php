@@ -8,7 +8,7 @@
 				'name' => 'Shopping Cart',
 				'author' => array(
 				'name' => 'Andrey Lubinov',
-				'website' => false,
+				'website' => '',
 				'email' => 'andrey.lubinov@gmail.com'),
 				'version' => '1.2',
 				'description' => '
@@ -34,8 +34,9 @@
 			}
 			$param_pool['ds-shopping-cart'] = implode(',', array_keys($s));
 			$total = null;
+			
 			foreach($s as $key => $value){
-				$item = new XMLElement('item', null, array(
+				$item = new XMLElement('item', NULL, array(
 					'id' => $key,
 					'num' => $value['num'],
 					'sum' => $value['sum'])

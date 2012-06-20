@@ -1,9 +1,9 @@
 <?php
 	Class fieldPrice extends Field
 	{
-		public function __construct(&$parent)
+		public function __construct()
 		{
-			parent::__construct($parent);
+			parent::__construct();
 			$this->_name = __('Price');
 			$this->_required = true;
 			$this->set('required', 'yes');
@@ -43,7 +43,7 @@
 			if($this->get('required') != 'yes') $label->appendChild(new XMLElement('i', __('Optional')));
 			$label->appendChild(Widget::Input('fields'.$fieldnamePrefix.'['.$this->get('element_name').']'.$fieldnamePostfix, $value));
 			$label->appendChild(new XMLElement('em', __('Enter currency in the following format: ####.## (for example: 49.95, 1900, 1899.50)')));
-			if($flagWithError != NULL) $wrapper->appendChild(Widget::wrapFormElementWithError($label, $flagWithError));
+			if($flagWithError != NULL) $wrapper->appendChild(Widget::Error($label, $flagWithError));
 			else $wrapper->appendChild($label);
 		}
 		
@@ -68,7 +68,7 @@
 			$sort = 'ORDER BY ' . (in_array(strtolower($order), array('random', 'rand')) ? 'RAND()' : "`ed`.`value` $order");
 		}
 		
-		public function buildDSRetrivalSQL($data, &$joins, &$where, $andOperation = false)
+		public function buildDSRetrievalSQL($data, &$joins, &$where, $andOperation = false)
 		{
 			$field_id = $this->get('id');
 			
@@ -103,6 +103,7 @@
 				foreach ($data as $value) {
 					$this->_key++;
 					$value = $this->cleanValue($value);
+					$value = $value;
 					$joins .= "
 						LEFT JOIN
 							`tbl_entries_data_{$field_id}` AS t{$field_id}_{$this->_key}
@@ -151,7 +152,7 @@
 			return self::__OK__;
 		}
 		
-		public function processRawFieldData($data, &$status, $simulate = false, $entry_id = null)
+		public function processRawFieldData($data, &$status, &$message=null, $simulate = false, $entry_id = null)
 		{
 			$status = self::__OK__;
 			if (strlen(trim($data)) == 0) return array();
@@ -223,7 +224,7 @@
 				  PRIMARY KEY  (`id`),
 				  KEY `entry_id` (`entry_id`),
 				  KEY `value` (`value`)
-				) ENGINE=MyISAM;"
+				) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;"
 			);
 		}
 	}
