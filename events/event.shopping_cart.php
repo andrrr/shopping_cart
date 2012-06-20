@@ -156,7 +156,7 @@
 		
 		protected function dataIsValid($idOnly = false)
 		{
-			if(empty($_REQUEST['id']) || !is_numeric($_REQUEST['id'])){
+			if(empty($_REQUEST['id']) || !ctype_digit($_REQUEST['id'])){
 				$this->_error = true;
 				$this->_msg = __('ID is not set or is invalid');
 				return false;
